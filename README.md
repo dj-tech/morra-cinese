@@ -1,7 +1,9 @@
 # morra-cinese
 
+DEMO: 
+
 TECNOLOGIE
-HTML5, CSS3- Material Design Lite (https://getmdl.io - https://github.com/google/material-design-lite), javascript
+HTML5, CSS3- Material Design Lite (https://getmdl.io - https://github.com/google/material-design-lite), javascript.
 
 GIOCATORI
 2 giocatori uno di questi rappresentato dal PC
