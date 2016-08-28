@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morra cinese</title>
+<meta name="description" content="Carta-forbice-sasso, rock-carta-forbicis, Roshambo, Rochambeau, Row-Sham-Bow, Ick-Ack-Ock, Janken, Mora, Gawi-Bawi-Bo, JanKenPon, Ca-Chi-Pun, Farkle, Ken Ken Pa, Kai Bai Bo.">
+
+<!-- Add to homescreen for Chrome on Android -->
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" sizes="192x192" href="images/android-desktop.png">
+
+<!-- Add to homescreen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Morra cinese">
+<link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+
+<!-- Tile icon for Win8 (144x144 + tile color) -->
+<meta name="msapplication-TileImage" content="images/ms-touch-icon-144x144-precomposed.png">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+
+<link rel="shortcut icon" href="images/favicon.png">
+
+<script type="text/javascript" src="http://storage.googleapis.com/code.getmdl.io/1.2.0/material.min.js"></script>
+
+   
+<link rel="stylesheet" href="css/material.min.css" /> 
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="css/style.css">
+
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+	    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
+	    <div class="mdl-layout__content">
+	      <h3>Morra Cinese</h3>
+	    </div>
+	    </header>
+		<main class="mdl-layout__content">
+			<div class="mdl-layout__tab-panel is-active" id="overview">
+				<section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+						<div id="game" class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+							<h4 class="mdl-cell mdl-cell--12-col">Scegli la tua mossa e scopri se hai vinto!</h4>
+							<div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--4-col-phone mossa">
+						   		<img src="images/carta.svg" alt="Carta" width="300" height="300" id="1">
+						    	<div class="mdl-tooltip" data-mdl-for="1">Carta</div>
+						    </div><!-- 4-col -->
+						    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--4-col-phone mossa">
+						    	<img src="images/forbici.svg" alt="Forbici" width="300" height="300" id="2">
+						    	<div class="mdl-tooltip" data-mdl-for="2">Forbici</div>
+						    </div><!-- 4-col -->
+						    <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--4-col-phone mossa">
+						    	<img src="images/sasso.svg" alt="Sasso" width="300" height="300" id="3">
+						    	<div class="mdl-tooltip" data-mdl-for="3">Sasso</div>
+							</div><!-- 4-col -->
+						</div><!-- game -->
+					</div>
+				</section>
+
+				<section id="avviso" class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+					<div class="mdl-card mdl-cell mdl-cell--12-col">
+					<div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+					<h4 class="mdl-cell mdl-cell--12-col">Risultato del match</h4>
+					<p id="risultato" class="winner"></p>
+					<p id="mossa_computer"></p>
+					<h4 class="mdl-cell mdl-cell--12-col">Punteggio</h4>
+						<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+					        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label punteggio">
+					        Computer <span id="computer_score">0</span>
+					        </div>
+						</div><!-- 6-col -->
+					    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
+					        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label punteggio">
+							player <span id="player_score">0</span>
+							</div>
+						</div><!-- 6-col -->
+					</div>
+					<div class="mdl-card__actions">
+						<button id="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" onclick="clear_all()"><i class="material-icons">clear</i></button>
+						<div class="mdl-tooltip" data-mdl-for="reset">CANCELLA PUNTEGGIO</div>          
+					</div>
+				</section>
+			</div>
+		</main>
+	</div>
+ 
+<script>
+// Funzione Random per generare un valore fra l'intervallo 1-3
+var random = function(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}; 
+
+var computer_score = 1;
+var player_score = 1; 
+
+// Funzione per il confronto e decretare lo stato del singolo match
+function Match(computer, player){
+
+	if (player===1){
+		if (computer===1){
+			document.getElementById("risultato").innerHTML="Pareggio";
+			document.getElementById("mossa_computer").innerHTML="Anche il Computer ha tirato Sasso";
+		}
+		if (computer===2) {
+			document.getElementById("risultato").innerHTML="Hai perso";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Carta";
+			document.getElementById("computer_score").innerHTML=computer_score++;
+		}
+		if (computer===3){
+			document.getElementById("risultato").innerHTML="Hai vinto";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Forbici";
+			document.getElementById("player_score").innerHTML=player_score++;
+		}
+	}
+	if (player===2)
+		{if (computer===1){
+			document.getElementById("risultato").innerHTML="Hai vinto";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Sasso";
+			document.getElementById("player_score").innerHTML=player_score++;
+		}
+		if (computer===2) {
+			document.getElementById("risultato").innerHTML="Pareggio";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Carta";
+		}
+		if (computer===3){
+			document.getElementById("risultato").innerHTML="Hai perso";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Forbici";
+			document.getElementById("computer_score").innerHTML=computer_score++;		
+		}
+	}
+	if (player===3)
+		{if (computer===1){
+			document.getElementById("risultato").innerHTML="Hai perso";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Sasso";
+			document.getElementById("computer_score").innerHTML=computer_score++;
+		}
+		if (computer===2) {
+			document.getElementById("risultato").innerHTML="Hai vinto";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Carta";
+			document.getElementById("player_score").innerHTML=player_score++;
+		}
+		if (computer===3){
+			document.getElementById("risultato").innerHTML="Pareggio";
+			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Forbici";
+		}
+	}
+}
+
+document.getElementById("game").addEventListener("click", function( event ) {
+ 	var sel_player=Number(event.target.id);
+ 	var sel_computer=random(1,3);
+ 	console.log(sel_player) 
+ 	console.log(sel_computer) 
+ 	Match(sel_computer, sel_player)
+ 	window.location.href="#avviso";
+  }, false);
+
+
+function clear_all(){
+	document.getElementById("computer_score").innerHTML= 0;
+	document.getElementById("player_score").innerHTML= 0;
+	computer_score = 1;
+	player_score = 1;  
+}
+</script>
+</body>
