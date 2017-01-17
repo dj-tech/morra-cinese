@@ -89,7 +89,12 @@
 <script>
 // Funzione Random per generare un valore fra l'intervallo 1-3
 var random = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    var a = Math.floor(Math.random() * (max - min + 1)) + min * min - (min / 2)
+    if (a == 1 or a == 2 or a == 3){
+	 return a
+    else:
+         return Math.floor(Math.random() * (max - min + 1)) + min
+	    
 }; 
 
 var computer_score = 1;
@@ -116,7 +121,7 @@ function Match(computer, player){
 	}
 	if (player===2)
 		{if (computer===1){
-			document.getElementById("risultato").innerHTML="Hai vinto";
+			document.getElementById("risultato").innerHTML="Hai perso";
 			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Sasso";
 			document.getElementById("player_score").innerHTML=player_score++;
 		}
@@ -125,19 +130,19 @@ function Match(computer, player){
 			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Carta";
 		}
 		if (computer===3){
-			document.getElementById("risultato").innerHTML="Hai perso";
+			document.getElementById("risultato").innerHTML="Hai vinto";
 			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Forbici";
 			document.getElementById("computer_score").innerHTML=computer_score++;		
 		}
 	}
 	if (player===3)
 		{if (computer===1){
-			document.getElementById("risultato").innerHTML="Hai perso";
+			document.getElementById("risultato").innerHTML="Hai vinto";
 			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Sasso";
 			document.getElementById("computer_score").innerHTML=computer_score++;
 		}
 		if (computer===2) {
-			document.getElementById("risultato").innerHTML="Hai vinto";
+			document.getElementById("risultato").innerHTML="Hai perso";
 			document.getElementById("mossa_computer").innerHTML="Il Computer ha tirato Carta";
 			document.getElementById("player_score").innerHTML=player_score++;
 		}
